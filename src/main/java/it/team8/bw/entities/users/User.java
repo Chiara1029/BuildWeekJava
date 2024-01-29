@@ -1,4 +1,6 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.users;
+
+import it.team8.bw.entities.users.Subscription;
 
 import javax.persistence.*;
 

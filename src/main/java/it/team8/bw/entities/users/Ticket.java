@@ -1,4 +1,4 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.users;
 
 import it.team8.bw.abstractClass.Means;
 import it.team8.bw.abstractClass.TicketOffice;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="ticket")
+@Table(name = "ticket")
 public class Ticket extends TicketOffice {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -16,9 +16,10 @@ public class Ticket extends TicketOffice {
     private LocalDate convalidationDate;
     @ManyToOne
     @JoinColumn(name = "means_id")
-    private Means mean;
+    private Means meanUsed;
 
-    public Ticket(){}
+    public Ticket() {
+    }
 
     public Ticket(LocalDate emissionDate) {
         super(emissionDate);

@@ -1,6 +1,7 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.road;
 
 import it.team8.bw.abstractClass.Means;
+import it.team8.bw.entities.road.Stop;
 
 import javax.persistence.*;
 import java.util.Set;

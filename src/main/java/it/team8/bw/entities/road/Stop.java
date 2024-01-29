@@ -1,4 +1,4 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.road;
 
 import javax.persistence.*;
 

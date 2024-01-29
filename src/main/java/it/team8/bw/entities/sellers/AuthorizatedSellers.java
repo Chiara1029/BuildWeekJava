@@ -1,4 +1,4 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.sellers;
 
 import it.team8.bw.abstractClass.TicketIssue;
 
@@ -9,7 +9,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("authorizated_sellers")
 public class AuthorizatedSellers extends TicketIssue {
 
-    public AuthorizatedSellers(){}
+    public AuthorizatedSellers() {
+    }
 
     public AuthorizatedSellers(String sellerName) {
         super(sellerName);

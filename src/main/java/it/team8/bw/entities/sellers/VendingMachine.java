@@ -1,4 +1,4 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.sellers;
 
 import it.team8.bw.abstractClass.TicketIssue;
 import it.team8.bw.enums.VendingMachineStatus;
@@ -11,7 +11,8 @@ import javax.persistence.Entity;
 public class VendingMachine extends TicketIssue {
     private VendingMachineStatus vendingMachineStatus;
 
-    public VendingMachine(){}
+    public VendingMachine() {
+    }
 
     public VendingMachine(String sellerName, VendingMachineStatus vendingMachineStatus) {
         super(sellerName);

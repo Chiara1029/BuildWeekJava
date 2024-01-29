@@ -1,4 +1,4 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.means;
 
 import it.team8.bw.abstractClass.Means;
 

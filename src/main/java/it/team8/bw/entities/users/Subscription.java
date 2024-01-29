@@ -1,4 +1,4 @@
-package it.team8.bw.entities;
+package it.team8.bw.entities.users;
 
 import it.team8.bw.abstractClass.TicketOffice;
 import it.team8.bw.enums.SubscriptionType;
