@@ -2,6 +2,7 @@ package it.team8.bw.abstractClass;
 
 import it.team8.bw.entities.Draft;
 import it.team8.bw.entities.Maintenance;
+import it.team8.bw.entities.Ticket;
 import it.team8.bw.enums.MeansStatus;
 
 import javax.persistence.*;
@@ -25,6 +26,9 @@ public abstract class Means {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @OneToMany (mappedBy = "mean")
+    private Set<Ticket> tickets;
 
     protected Means() {
     }
