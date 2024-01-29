@@ -54,7 +54,7 @@ public class RoadsDAO {
 
             transaction.commit();
 
-            System.out.println("Draft" + found + "and delete with success !");
+            System.out.println("Draft" + found + " has been deleted with success!");
 
         } else {
 
