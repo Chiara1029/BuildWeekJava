@@ -8,7 +8,9 @@ import java.util.Set;
 @DiscriminatorColumn(name = "type_of_issue")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class TicketIssue {
+    @Column(nullable = false)
     protected String sellerName;
+
     @OneToMany(mappedBy = "ticket_issue_id")
     protected Set<TicketOffice> ticketOffices;
     @Id
