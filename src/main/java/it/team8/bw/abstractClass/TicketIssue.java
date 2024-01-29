@@ -33,6 +33,7 @@ public abstract class TicketIssue {
         this.sellerName = sellerName;
     }
 
+
     public Long getId() {
         return id;
     }

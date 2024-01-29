@@ -21,29 +21,20 @@ public class TicketOfficeDAO {
      */
     public void save(TicketOffice ticketOffice) {
         EntityTransaction transaction = em.getTransaction();
-
         transaction.begin();
-
         em.persist(ticketOffice);
-
         transaction.commit();
-
         System.out.println("TicketOffice " + ticketOffice + " add with success!");
     }
 
     public TicketOffice findById(long id) {
-
         return em.find(TicketOffice.class, id);
     }
 
     public void findByIdAndDelete(long id) {
-
         TicketOffice found = this.findById(id);
-
         if (found != null) {
-
             EntityTransaction transaction = em.getTransaction();
-
 
             transaction.begin();
 

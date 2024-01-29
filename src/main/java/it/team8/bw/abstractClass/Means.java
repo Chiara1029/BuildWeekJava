@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-
 @Table(name = "means")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Means {
     protected int capacity;
     @Enumerated(EnumType.STRING)
@@ -33,12 +33,11 @@ public abstract class Means {
     protected Means() {
     }
 
-    public Means(int capacity, MeansStatus meansStatus, Draft draft, Set<Maintenance> maintenance) {
+    public Means(int capacity, MeansStatus meansStatus) {
         this.capacity = capacity;
         this.meansStatus = meansStatus;
         this.obliterated = 0;
-        this.draft = draft;
-        this.maintenance = maintenance;
+
     }
 
     public int getCapacity() {

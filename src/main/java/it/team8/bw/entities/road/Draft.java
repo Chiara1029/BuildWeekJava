@@ -1,9 +1,9 @@
 package it.team8.bw.entities.road;
 
 import it.team8.bw.abstractClass.Means;
-import it.team8.bw.entities.road.Stop;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,10 +20,17 @@ public class Draft {
 
     private String departur;
     private String arrival;
-
     @OneToMany
     @JoinColumn(name = "stop_id")
-    private Set<Stop> stop;
+    private Set<Stop> stop = new HashSet<>();
+
+    public Draft() {
+    }
+
+    public Draft(String departur, String arrival) {
+        this.departur = departur;
+        this.arrival = arrival;
+    }
 
     public Means getMeans_id() {
         return means_id;
@@ -56,6 +63,7 @@ public class Draft {
     public void setStop(Set<Stop> stop) {
         this.stop = stop;
     }
+
 
     public Long getId() {
         return id;

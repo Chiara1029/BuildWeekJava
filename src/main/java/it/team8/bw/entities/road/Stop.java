@@ -19,10 +19,9 @@ public class Stop {
     public Stop() {
     }
 
-    public Stop(String departurStop, String arrivalStop, Draft draft) {
+    public Stop(String departurStop, String arrivalStop) {
         this.departurStop = departurStop;
         this.arrivalStop = arrivalStop;
-        this.draft = draft;
     }
 
     public String getDeparturStop() {

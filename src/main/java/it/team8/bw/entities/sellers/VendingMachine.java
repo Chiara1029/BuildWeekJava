@@ -5,10 +5,14 @@ import it.team8.bw.enums.VendingMachineStatus;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 @DiscriminatorValue("vending_machine")
 public class VendingMachine extends TicketIssue {
+
+    @Enumerated(EnumType.STRING)
     private VendingMachineStatus vendingMachineStatus;
 
     public VendingMachine() {

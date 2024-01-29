@@ -20,11 +20,11 @@ public class Subscription extends TicketOffice {
 
     private LocalDate paymentDay;
 
-    public Subscription(LocalDate emissionDate, SubscriptionType subscriptionType, User user, LocalDate paymentDay) {
+    public Subscription(LocalDate emissionDate, SubscriptionType subscriptionType, LocalDate paymentDay) {
         super(emissionDate);
         this.subscriptionType = subscriptionType;
         this.annualDeadline = emissionDate.plusYears(1);
-        this.user = user;
+
         this.paymentDay = paymentDay;
     }
 

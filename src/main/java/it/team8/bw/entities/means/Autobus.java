@@ -1,11 +1,10 @@
 package it.team8.bw.entities.means;
 
 import it.team8.bw.abstractClass.Means;
-import it.team8.bw.entities.road.Draft;
 import it.team8.bw.enums.MeansStatus;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("autobus")
@@ -14,7 +13,8 @@ public class Autobus extends Means {
     public Autobus() {
     }
 
-    public Autobus(MeansStatus meansStatus, Draft draft, Set<Maintenance> maintenance) {
-        super(50, meansStatus, draft, maintenance);
+    public Autobus(MeansStatus meansStatus) {
+        super(50, meansStatus);
+
     }
 }
