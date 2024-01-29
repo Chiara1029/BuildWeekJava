@@ -18,6 +18,38 @@ public class Maintenance {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    public Maintenance() {
+    }
+
+    public Maintenance(LocalDate startMaintenance, LocalDate finishMaintenance) {
+        this.startMaintenance = startMaintenance;
+        this.finishMaintenance = finishMaintenance;
+    }
+
+    public LocalDate getStartMaintenance() {
+        return startMaintenance;
+    }
+
+    public void setStartMaintenance(LocalDate startMaintenance) {
+        this.startMaintenance = startMaintenance;
+    }
+
+    public LocalDate getFinishMaintenance() {
+        return finishMaintenance;
+    }
+
+    public void setFinishMaintenance(LocalDate finishMaintenance) {
+        this.finishMaintenance = finishMaintenance;
+    }
+
+    public Means getMeans_id() {
+        return means_id;
+    }
+
+    public void setMeans_id(Means means_id) {
+        this.means_id = means_id;
+    }
+
     public Long getId() {
         return id;
     }

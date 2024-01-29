@@ -18,9 +18,9 @@ public abstract class TicketOffice {
     protected TicketOffice() {
     }
 
-    public TicketOffice(LocalDate emissionDate, TicketIssue ticket_issue_id) {
+    public TicketOffice(LocalDate emissionDate) {
         this.emissionDate = emissionDate;
-        this.ticket_issue_id = ticket_issue_id;
+
     }
 
     public LocalDate getEmissionDate() {

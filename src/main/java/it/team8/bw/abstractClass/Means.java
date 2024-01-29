@@ -8,12 +8,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "ticket_office")
+
+@Table(name = "means")
 public abstract class Means {
     protected int capacity;
     @Enumerated(EnumType.STRING)
     protected MeansStatus meansStatus;
-    protected boolean obliterated;
+    protected int obliterated;
 
     @OneToOne(mappedBy = "means_id")
     protected Draft draft;
@@ -28,10 +29,10 @@ public abstract class Means {
     protected Means() {
     }
 
-    public Means(int capacity, MeansStatus meansStatus, boolean obliterated, Draft draft, Set<Maintenance> maintenance) {
+    public Means(int capacity, MeansStatus meansStatus, Draft draft, Set<Maintenance> maintenance) {
         this.capacity = capacity;
         this.meansStatus = meansStatus;
-        this.obliterated = obliterated;
+        this.obliterated = 0;
         this.draft = draft;
         this.maintenance = maintenance;
     }
@@ -52,11 +53,11 @@ public abstract class Means {
         this.meansStatus = meansStatus;
     }
 
-    public boolean isObliterated() {
+    public int isObliterated() {
         return obliterated;
     }
 
-    public void setObliterated(boolean obliterated) {
+    public void setObliterated(int obliterated) {
         this.obliterated = obliterated;
     }
 

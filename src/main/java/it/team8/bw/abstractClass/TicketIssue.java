@@ -5,6 +5,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ticket_issue")
+@DiscriminatorColumn(name = "type_of_issue")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class TicketIssue {
     protected String sellerName;
     @OneToMany(mappedBy = "ticket_issue_id")
