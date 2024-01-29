@@ -1,5 +1,6 @@
 package it.team8.bw.entities;
 
+import it.team8.bw.abstractClass.Means;
 import it.team8.bw.abstractClass.TicketOffice;
 
 import javax.persistence.*;
@@ -13,6 +14,9 @@ public class Ticket extends TicketOffice {
     private Long id;
     private boolean obliterated;
     private LocalDate convalidationDate;
+    @ManyToOne
+    @JoinColumn(name = "means_id")
+    private Means mean;
 
     public Ticket(){}
 
