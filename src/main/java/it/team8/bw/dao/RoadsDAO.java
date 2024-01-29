@@ -1,6 +1,7 @@
 package it.team8.bw.dao;
 
 import it.team8.bw.entities.road.Draft;
+import it.team8.bw.entities.road.Stop;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -20,7 +21,7 @@ public class RoadsDAO {
      *
      * @param draft
      */
-    public void save(Draft draft) {
+    public void saveDraft(Draft draft) {
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
@@ -30,6 +31,18 @@ public class RoadsDAO {
         transaction.commit();
 
         System.out.println("Draft " + draft + " add with success!");
+    }
+
+    public void saveStop(Stop stop) {
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+
+        em.persist(stop);
+
+        transaction.commit();
+
+        System.out.println("Draft " + stop + " add with success!");
     }
 
     public Draft findById(long id) {

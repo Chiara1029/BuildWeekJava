@@ -19,10 +19,12 @@ public class Stop {
     public Stop() {
     }
 
-    public Stop(String departurStop, String arrivalStop) {
+    public Stop(String departurStop, String arrivalStop, Draft draft) {
         this.departurStop = departurStop;
         this.arrivalStop = arrivalStop;
+        this.draft = draft;
     }
+
 
     public String getDeparturStop() {
         return departurStop;

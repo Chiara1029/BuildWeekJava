@@ -12,7 +12,7 @@ public class Maintenance {
     protected LocalDate finishMaintenance;
     @ManyToOne
     @JoinColumn(name = "means_id")
-    protected Means means_id;
+    protected Means means;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -21,9 +21,10 @@ public class Maintenance {
     public Maintenance() {
     }
 
-    public Maintenance(LocalDate startMaintenance, LocalDate finishMaintenance) {
+    public Maintenance(LocalDate startMaintenance, LocalDate finishMaintenance, Means means) {
         this.startMaintenance = startMaintenance;
         this.finishMaintenance = finishMaintenance;
+        this.means = means;
     }
 
     public LocalDate getStartMaintenance() {
@@ -43,11 +44,11 @@ public class Maintenance {
     }
 
     public Means getMeans_id() {
-        return means_id;
+        return means;
     }
 
     public void setMeans_id(Means means_id) {
-        this.means_id = means_id;
+        this.means = means_id;
     }
 
     public Long getId() {

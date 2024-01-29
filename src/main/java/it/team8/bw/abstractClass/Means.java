@@ -20,7 +20,7 @@ public abstract class Means {
     @OneToOne(mappedBy = "means_id")
     protected Draft draft;
 
-    @OneToMany(mappedBy = "means_id")
+    @OneToMany(mappedBy = "means")
     protected Set<Maintenance> maintenance;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

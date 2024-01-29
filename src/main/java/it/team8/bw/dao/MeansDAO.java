@@ -1,6 +1,7 @@
 package it.team8.bw.dao;
 
 import it.team8.bw.abstractClass.Means;
+import it.team8.bw.entities.means.Maintenance;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -18,7 +19,7 @@ public class MeansDAO {
      *
      * @param means
      */
-    public void save(Means means) {
+    public void saveMeans(Means means) {
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
@@ -28,6 +29,18 @@ public class MeansDAO {
         transaction.commit();
 
         System.out.println("Means " + means + " add with success!");
+    }
+
+    public void saveMaintenance(Maintenance maintenance) {
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+
+        em.persist(maintenance);
+
+        transaction.commit();
+
+        System.out.println("Maintenance " + maintenance + " add with success!");
     }
 
     public Means findById(long id) {

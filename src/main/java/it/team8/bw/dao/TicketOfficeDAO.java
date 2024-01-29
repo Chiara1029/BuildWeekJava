@@ -1,6 +1,7 @@
 package it.team8.bw.dao;
 
 import it.team8.bw.abstractClass.TicketOffice;
+import it.team8.bw.entities.users.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -17,15 +18,24 @@ public class TicketOfficeDAO {
     /**
      * function to save autobus and tram
      *
-     * @param ticketOffice
+     * @param ticketOffice and User
      */
-    public void save(TicketOffice ticketOffice) {
+    public void saveTicketOffice(TicketOffice ticketOffice) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(ticketOffice);
         transaction.commit();
         System.out.println("TicketOffice " + ticketOffice + " add with success!");
     }
+
+    public void saveUser(User user) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.persist(user);
+        transaction.commit();
+        System.out.println("User " + user + " add with success!");
+    }
+
 
     public TicketOffice findById(long id) {
         return em.find(TicketOffice.class, id);
