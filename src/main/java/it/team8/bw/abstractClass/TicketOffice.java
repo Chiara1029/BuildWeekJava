@@ -5,7 +5,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "ticket_office")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class TicketOffice {
+    @Column(nullable = false)
     protected LocalDate emissionDate;
     @ManyToOne
     @JoinColumn(name = "ticket_issue_id")
