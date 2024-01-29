@@ -15,16 +15,4 @@ public class Autobus extends Means {
     public Autobus(MeansStatus meansStatus, Draft draft, Set<Maintenance> maintenance) {
         super(50, meansStatus, draft, maintenance);
     }
-
-    @Override
-    public String toString() {
-        return "Autobus{" +
-                "id=" + super.getId()+
-                ", capacity=" + capacity +
-                ", meansStatus=" + meansStatus +
-                ", obliterated=" + obliterated +
-                ", draft=" + draft +
-                ", maintenance=" + maintenance +
-                '}';
-    }
 }

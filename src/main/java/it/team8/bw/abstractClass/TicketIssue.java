@@ -34,5 +34,4 @@ public abstract class TicketIssue {
     public Long getId() {
         return id;
     }
-
 }

@@ -6,7 +6,12 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("authorizated-sellers")
+@DiscriminatorValue("authorizated_sellers")
 public class AuthorizatedSellers extends TicketIssue {
 
+    public AuthorizatedSellers(){}
+
+    public AuthorizatedSellers(String sellerName) {
+        super(sellerName);
+    }
 }
