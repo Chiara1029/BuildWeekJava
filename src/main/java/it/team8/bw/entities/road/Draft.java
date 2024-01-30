@@ -3,7 +3,6 @@ package it.team8.bw.entities.road;
 import it.team8.bw.abstractClass.Means;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,17 +17,17 @@ public class Draft {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String departur;
+    private String departure;
     private String arrival;
     @OneToMany
-    @JoinColumn(name = "stop_id")
-    private Set<Stop> stop = new HashSet<>();
+    @JoinColumn(name = "draft")
+    private Set<Stop> stop;
 
     public Draft() {
     }
 
-    public Draft(String departur, String arrival) {
-        this.departur = departur;
+    public Draft(String departure, String arrival) {
+        this.departure = departure;
         this.arrival = arrival;
     }
 
@@ -41,11 +40,11 @@ public class Draft {
     }
 
     public String getDepartur() {
-        return departur;
+        return departure;
     }
 
     public void setDepartur(String departur) {
-        this.departur = departur;
+        this.departure = departur;
     }
 
     public String getArrival() {

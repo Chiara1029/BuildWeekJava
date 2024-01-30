@@ -48,9 +48,7 @@ public class Fulltable {
         Faker faker = new Faker(Locale.ENGLISH);
         return new User(faker.name().firstName(), faker.name().lastName());
     };
-    public static Supplier<Ticket> newTicket = () -> {
-        return new Ticket(LocalDate.now());
-    };
+
     public static Supplier<VendingMachine> newVendingMachine = () -> {
         Faker faker = new Faker(Locale.ENGLISH);
         return new VendingMachine(faker.rockBand().name(), VendingMachineStatus.ACTIVE);
@@ -60,8 +58,14 @@ public class Fulltable {
         return new AuthorizatedSellers(faker.animal().name());
     };
 
-    public static Supplier<Subscription> newSubscription(User user) {
-        return () -> new Subscription(LocalDate.now(), SubscriptionType.WEEKLY, LocalDate.now(), user);
+    public static Supplier<Ticket> newTicket(TicketIssue ticketIssue) {
+        return () -> new Ticket(LocalDate.now(), ticketIssue);
+    }
+
+    ;
+
+    public static Supplier<Subscription> newSubscription(User user, TicketIssue ticketIssue) {
+        return () -> new Subscription(LocalDate.now(), ticketIssue, SubscriptionType.WEEKLY, LocalDate.now(), user);
     }
 
     public static Supplier<Maintenance> newMaintenance(Means means) {
@@ -88,8 +92,8 @@ public class Fulltable {
         roadsDAO.saveDraft(draft2);
 
         for (int i = 0; i < 3; i++) {
-            newStop(draft);
-            newStop(draft2);
+            roadsDAO.saveStop(newStop(draft).get());
+            roadsDAO.saveStop(newStop(draft2).get());
         }
 
 
@@ -104,8 +108,6 @@ public class Fulltable {
 
         meansDAO.saveMaintenance(maintenance);
         meansDAO.saveMaintenance(maintenance2);
-        System.out.println("pollo");
-
 
         TicketIssue vendingMachine = newVendingMachine.get();
         TicketIssue authorizatedSellers = newAuthorizatedSellers.get();
@@ -115,9 +117,11 @@ public class Fulltable {
 
         for (int i = 0; i < 2; i++) {
             User user = newUser.get();
-            Ticket ticket = newTicket.get();
-            TicketOffice subscription = newSubscription(user).get();
             ticketOfficeDAO.saveUser(user);
+
+            Ticket ticket = newTicket(vendingMachine).get();
+            TicketOffice subscription = newSubscription(user, authorizatedSellers).get();
+
             ticketOfficeDAO.saveTicketOffice(ticket);
             ticketOfficeDAO.saveTicketOffice(subscription);
         }

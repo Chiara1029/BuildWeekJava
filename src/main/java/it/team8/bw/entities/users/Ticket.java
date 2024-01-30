@@ -1,6 +1,7 @@
 package it.team8.bw.entities.users;
 
 import it.team8.bw.abstractClass.Means;
+import it.team8.bw.abstractClass.TicketIssue;
 import it.team8.bw.abstractClass.TicketOffice;
 
 import javax.persistence.*;
@@ -21,8 +22,8 @@ public class Ticket extends TicketOffice {
     public Ticket() {
     }
 
-    public Ticket(LocalDate emissionDate) {
-        super(emissionDate);
+    public Ticket(LocalDate emissionDate, TicketIssue ticketIssue) {
+        super(emissionDate, ticketIssue);
         this.obliterated = false;
     }
 

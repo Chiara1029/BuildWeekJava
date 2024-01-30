@@ -42,7 +42,7 @@ public class RoadsDAO {
 
         transaction.commit();
 
-        System.out.println("Draft " + stop + " add with success!");
+        System.out.println("Stop " + stop + " add with success!");
     }
 
     public Draft findById(long id) {

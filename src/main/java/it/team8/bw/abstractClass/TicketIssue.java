@@ -11,7 +11,7 @@ public abstract class TicketIssue {
     @Column(nullable = false)
     protected String sellerName;
 
-    @OneToMany(mappedBy = "ticket_issue_id")
+    @OneToMany(mappedBy = "ticketIssue")
     protected Set<TicketOffice> ticketOffices;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

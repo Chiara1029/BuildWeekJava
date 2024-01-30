@@ -1,5 +1,6 @@
 package it.team8.bw.entities.users;
 
+import it.team8.bw.abstractClass.TicketIssue;
 import it.team8.bw.abstractClass.TicketOffice;
 import it.team8.bw.enums.SubscriptionType;
 
@@ -20,8 +21,8 @@ public class Subscription extends TicketOffice {
 
     private LocalDate paymentDay;
 
-    public Subscription(LocalDate emissionDate, SubscriptionType subscriptionType, LocalDate paymentDay, User user) {
-        super(emissionDate);
+    public Subscription(LocalDate emissionDate, TicketIssue ticketIssue, SubscriptionType subscriptionType, LocalDate paymentDay, User user) {
+        super(emissionDate, ticketIssue);
         this.subscriptionType = subscriptionType;
         this.annualDeadline = emissionDate.plusYears(1);
         this.paymentDay = paymentDay;

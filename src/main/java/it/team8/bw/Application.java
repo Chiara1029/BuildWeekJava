@@ -16,10 +16,12 @@ public class Application {
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
         System.out.println("Hello World!");
+
         MeansDAO meansDAO = new MeansDAO(em);
         RoadsDAO roadsDAO = new RoadsDAO(em);
         TicketIssueDAO ticketIssueDAO = new TicketIssueDAO(em);
         TicketOfficeDAO ticketOfficeDAO = new TicketOfficeDAO(em);
+
         Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
 
 

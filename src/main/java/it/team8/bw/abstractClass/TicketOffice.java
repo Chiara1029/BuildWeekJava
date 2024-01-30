@@ -10,8 +10,8 @@ public abstract class TicketOffice {
     @Column(nullable = false)
     protected LocalDate emissionDate;
     @ManyToOne
-    @JoinColumn(name = "ticket_issue_id")
-    protected TicketIssue ticket_issue_id;
+    @JoinColumn(name = "ticketIssue")
+    protected TicketIssue ticketIssue;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -20,10 +20,12 @@ public abstract class TicketOffice {
     protected TicketOffice() {
     }
 
-    public TicketOffice(LocalDate emissionDate) {
+    public TicketOffice(LocalDate emissionDate, TicketIssue ticketIssue) {
         this.emissionDate = emissionDate;
+        this.ticketIssue = ticketIssue;
 
     }
+
 
     public LocalDate getEmissionDate() {
         return emissionDate;
@@ -33,12 +35,12 @@ public abstract class TicketOffice {
         this.emissionDate = emissionDate;
     }
 
-    public TicketIssue getTicket_issue_id() {
-        return ticket_issue_id;
+    public TicketIssue getTicket() {
+        return ticketIssue;
     }
 
-    public void setTicket_issue_id(TicketIssue ticket_issue_id) {
-        this.ticket_issue_id = ticket_issue_id;
+    public void setTicket(TicketIssue ticket_issue_id) {
+        this.ticketIssue = ticket_issue_id;
     }
 
     public Long getId() {
