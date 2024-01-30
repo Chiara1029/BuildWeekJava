@@ -55,5 +55,11 @@ public class Maintenance {
         return id;
     }
 
-
+    @Override
+    public String toString() {
+        return "Maintenance{" +
+                "startMaintenance=" + startMaintenance +
+                ", finishMaintenance=" + finishMaintenance +
+                '}';
+    }
 }

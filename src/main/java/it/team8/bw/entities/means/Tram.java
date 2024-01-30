@@ -17,5 +17,14 @@ public class Tram extends Means {
         super(80, meansStatus);
     }
 
-
+    @Override
+    public String toString() {
+        return "Tram{" +
+                "capacity=" + capacity +
+                ", meansStatus=" + meansStatus +
+                ", obliterated=" + obliterated +
+                ", draft=" + draft +
+                ", maintenance=" + maintenance +
+                '}';
+    }
 }

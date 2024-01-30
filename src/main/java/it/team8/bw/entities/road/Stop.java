@@ -54,5 +54,11 @@ public class Stop {
         return id;
     }
 
-
+    @Override
+    public String toString() {
+        return "Stop{" +
+                "departurStop='" + departurStop + '\'' +
+                ", arrivalStop='" + arrivalStop + '\'' +
+                '}';
+    }
 }

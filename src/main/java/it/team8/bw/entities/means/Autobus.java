@@ -13,6 +13,17 @@ public class Autobus extends Means {
     public Autobus() {
     }
 
+    @Override
+    public String toString() {
+        return "Autobus{" +
+                "capacity=" + capacity +
+                ", meansStatus=" + meansStatus +
+                ", obliterated=" + obliterated +
+                ", draft=" + draft +
+                ", maintenance=" + maintenance +
+                '}';
+    }
+
     public Autobus(MeansStatus meansStatus) {
         super(50, meansStatus);
 

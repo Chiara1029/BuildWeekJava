@@ -12,6 +12,15 @@ import javax.persistence.Enumerated;
 @DiscriminatorValue("vending_machine")
 public class VendingMachine extends TicketIssue {
 
+    @Override
+    public String toString() {
+        return "VendingMachine{" +
+                "vendingMachineStatus=" + vendingMachineStatus +
+                ", sellerName='" + sellerName + '\'' +
+                ", ticketOffices=" + ticketOffices +
+                '}';
+    }
+
     @Enumerated(EnumType.STRING)
     private VendingMachineStatus vendingMachineStatus;
 

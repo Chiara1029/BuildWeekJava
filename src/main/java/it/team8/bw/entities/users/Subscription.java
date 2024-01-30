@@ -10,6 +10,16 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "subscription")
 public class Subscription extends TicketOffice {
+    @Override
+    public String toString() {
+        return "Subscription{" +
+                "subscriptionType=" + subscriptionType +
+                ", annualDeadline=" + annualDeadline +
+                ", user=" + user +
+                ", paymentDay=" + paymentDay +
+                ", emissionDate=" + emissionDate +
+                '}';
+    }
 
     @Enumerated(EnumType.STRING)
     private SubscriptionType subscriptionType;
