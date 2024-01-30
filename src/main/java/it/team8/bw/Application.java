@@ -24,6 +24,16 @@ public class Application {
 
         Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
 
+//        LocalDate now = LocalDate.now();
+
+//        ticketOfficeDAO.getTicketsByTime(now.minusDays(20), now);
+
+
+        ticketOfficeDAO.setConvalidation(19L, meansDAO.findById(9L));
+
+
+
+
 
     }
 }
