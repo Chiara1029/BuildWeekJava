@@ -17,7 +17,7 @@ public abstract class Means {
     protected MeansStatus meansStatus;
     protected int obliterated;
 
-    @OneToOne(mappedBy = "means_id")
+    @OneToOne(mappedBy = "mean")
     protected Draft draft;
 
     @OneToMany(mappedBy = "means")
@@ -33,10 +33,11 @@ public abstract class Means {
     protected Means() {
     }
 
-    public Means(int capacity, MeansStatus meansStatus) {
+    public Means(int capacity, MeansStatus meansStatus, Draft draft) {
         this.capacity = capacity;
         this.meansStatus = meansStatus;
         this.obliterated = 0;
+        this.draft = draft;
 
     }
 

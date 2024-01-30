@@ -37,7 +37,8 @@ public class Fulltable {
     public static Supplier<Means> newAutobus = () -> {
         Faker faker = new Faker(Locale.ENGLISH);
         Random rndm = new Random();
-        return new Autobus(MeansStatus.SERVICE);
+        MeansStatus[] values = MeansStatus.values();
+        return new Autobus(values[rndm.nextInt(values.length)]);
     };
     public static Supplier<Means> newTram = () -> {
         Faker faker = new Faker(Locale.ENGLISH);
@@ -65,7 +66,9 @@ public class Fulltable {
     ;
 
     public static Supplier<Subscription> newSubscription(User user, TicketIssue ticketIssue) {
-        return () -> new Subscription(LocalDate.now(), ticketIssue, SubscriptionType.WEEKLY, LocalDate.now(), user);
+        SubscriptionType[] values = SubscriptionType.values();
+        Random rndm = new Random();
+        return () -> new Subscription(LocalDate.now(), ticketIssue, values[rndm.nextInt(values.length)], LocalDate.now(), user);
     }
 
     public static Supplier<Maintenance> newMaintenance(Means means) {
