@@ -34,22 +34,12 @@ public class Fulltable {
         Draft draft = new Draft(faker.address().city(), faker.address().city());
         return draft;
     };
-    public static Supplier<Means> newAutobus = () -> {
-        Faker faker = new Faker(Locale.ENGLISH);
-        Random rndm = new Random();
-        MeansStatus[] values = MeansStatus.values();
-        return new Autobus(values[rndm.nextInt(values.length)]);
-    };
-    public static Supplier<Means> newTram = () -> {
-        Faker faker = new Faker(Locale.ENGLISH);
-        Random rndm = new Random();
-        return new Tram(MeansStatus.SERVICE);
-    };
     public static Supplier<User> newUser = () -> {
         Faker faker = new Faker(Locale.ENGLISH);
         return new User(faker.name().firstName(), faker.name().lastName());
     };
 
+    ;
     public static Supplier<VendingMachine> newVendingMachine = () -> {
         Faker faker = new Faker(Locale.ENGLISH);
         return new VendingMachine(faker.rockBand().name(), VendingMachineStatus.ACTIVE);
@@ -58,6 +48,24 @@ public class Fulltable {
         Faker faker = new Faker(Locale.ENGLISH);
         return new AuthorizatedSellers(faker.animal().name());
     };
+
+    public static Supplier<Means> newTram(Draft draft) {
+        return () -> {
+            Faker faker = new Faker(Locale.ENGLISH);
+            Random rndm = new Random();
+            return new Tram(MeansStatus.SERVICE, draft);
+        };
+    }
+
+    public static Supplier<Means> newAutobus(Draft draft) {
+        return () -> {
+            Faker faker = new Faker(Locale.ENGLISH);
+            Random rndm = new Random();
+            MeansStatus[] values = MeansStatus.values();
+            return new Autobus(values[rndm.nextInt(values.length)], draft);
+        };
+
+    }
 
     public static Supplier<Ticket> newTicket(TicketIssue ticketIssue) {
         return () -> new Ticket(LocalDate.now(), ticketIssue);
@@ -100,10 +108,10 @@ public class Fulltable {
         }
 
 
-        Means autobus = newAutobus.get();
+        Means autobus = newAutobus(draft).get();
         meansDAO.saveMeans(autobus);
 
-        Means tram = newTram.get();
+        Means tram = newTram(draft2).get();
         meansDAO.saveMeans(tram);
 
         Maintenance maintenance = newMaintenance(autobus).get();

@@ -1,6 +1,7 @@
 package it.team8.bw.entities.means;
 
 import it.team8.bw.abstractClass.Means;
+import it.team8.bw.entities.road.Draft;
 import it.team8.bw.enums.MeansStatus;
 
 import javax.persistence.DiscriminatorValue;
@@ -13,8 +14,8 @@ public class Tram extends Means {
     public Tram() {
     }
 
-    public Tram(MeansStatus meansStatus) {
-        super(80, meansStatus);
+    public Tram(MeansStatus meansStatus, Draft draft) {
+        super(80, meansStatus, draft);
     }
 
     @Override

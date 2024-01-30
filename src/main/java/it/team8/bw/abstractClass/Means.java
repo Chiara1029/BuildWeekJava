@@ -17,7 +17,8 @@ public abstract class Means {
     protected MeansStatus meansStatus;
     protected int obliterated;
 
-    @OneToOne(mappedBy = "mean")
+    @OneToOne
+    @JoinColumn(name = "draft_id")
     protected Draft draft;
 
     @OneToMany(mappedBy = "means")

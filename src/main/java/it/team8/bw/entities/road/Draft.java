@@ -9,8 +9,7 @@ import java.util.Set;
 @Table(name = "draft")
 
 public class Draft {
-    @OneToOne
-    @JoinColumn(name = "means_id")
+    @OneToOne(mappedBy = "draft")
     private Means means_id;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,9 +22,6 @@ public class Draft {
     @JoinColumn(name = "draft")
     private Set<Stop> stop;
 
-    @OneToOne
-    @JoinColumn(name = "means_id")
-    private Means mean;
 
     public Draft() {
     }
