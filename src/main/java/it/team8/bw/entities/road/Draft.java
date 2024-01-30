@@ -23,6 +23,10 @@ public class Draft {
     @JoinColumn(name = "draft")
     private Set<Stop> stop;
 
+    @OneToOne
+    @JoinColumn(name = "means_id")
+    private Means mean;
+
     public Draft() {
     }
 
@@ -68,5 +72,12 @@ public class Draft {
         return id;
     }
 
-
+    @Override
+    public String toString() {
+        return "Draft{" +
+                "departure='" + departure + '\'' +
+                ", arrival='" + arrival + '\'' +
+                ", stop=" + stop +
+                '}';
+    }
 }

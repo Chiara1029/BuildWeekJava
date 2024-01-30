@@ -17,4 +17,6 @@ public class Autobus extends Means {
         super(50, meansStatus);
 
     }
+
+
 }
