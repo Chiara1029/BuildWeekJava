@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 public class TicketIssueDAO {
     private final EntityManager em;
 
-
     public TicketIssueDAO(EntityManager em) {
         this.em = em;
     }
@@ -18,7 +17,7 @@ public class TicketIssueDAO {
         transaction.begin();
         em.persist(ticketIssue);
         transaction.commit();
-        System.out.println("Ticket " + ticketIssue + " add with success!");
+        System.out.println("Ticket " + ticketIssue + " has been saved with success!");
     }
 
     public TicketIssue findById (long id){
@@ -33,6 +32,8 @@ public class TicketIssueDAO {
             em.remove(found);
             transaction.commit();
             System.out.println("Ticket " + found + " has been deleted with success!");
+        } else {
+            System.out.println("Ticket Issue with id: " + id + " not found.");
         }
     }
 }

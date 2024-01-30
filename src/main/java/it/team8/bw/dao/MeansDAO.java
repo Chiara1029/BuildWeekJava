@@ -8,69 +8,39 @@ import javax.persistence.EntityTransaction;
 
 public class MeansDAO {
     private final EntityManager em;
-
-
     public MeansDAO(EntityManager em) {
         this.em = em;
     }
-
-    /**
-     * function to save autobus and tram
-     *
-     * @param means
-     */
-    public void saveMeans(Means means) {
+    public void saveMeans(Means mean) {
         EntityTransaction transaction = em.getTransaction();
-
         transaction.begin();
-
-        em.persist(means);
-
+        em.persist(mean);
         transaction.commit();
-
-        System.out.println("Means " + means + " add with success!");
+        System.out.println("Mean " + mean + " has been saved with success!");
     }
 
     public void saveMaintenance(Maintenance maintenance) {
         EntityTransaction transaction = em.getTransaction();
-
         transaction.begin();
-
         em.persist(maintenance);
-
         transaction.commit();
-
-        System.out.println("Maintenance " + maintenance + " add with success!");
+        System.out.println("Maintenance " + maintenance + " has been saved with success!");
     }
 
     public Means findById(long id) {
-
         return em.find(Means.class, id);
     }
 
     public void findByIdAndDelete(long id) {
-
         Means found = this.findById(id);
-
         if (found != null) {
-
             EntityTransaction transaction = em.getTransaction();
-
-
             transaction.begin();
-
-
             em.remove(found);
-
-
             transaction.commit();
-
-            System.out.println("Means" + found + "and delete with success !");
-
+            System.out.println("Means " + found + " has been deletet with success!");
         } else {
-
-            System.out.println("Means with id :" + id + " didn't found");
+            System.out.println("Means with id :" + id + " not found");
         }
     }
-
 }
