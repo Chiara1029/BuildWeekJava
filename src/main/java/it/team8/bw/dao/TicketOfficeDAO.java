@@ -65,13 +65,23 @@ public class TicketOfficeDAO {
     }
 
     public void setConvalidation(Long ticketId, Means meanId) {
-
         EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.createQuery("UPDATE Ticket t SET t.convalidationDate = CURRENT_DATE, t.obliterated = TRUE,  t.meanUsed = :meanId WHERE t.id = :id AND convalidationDate IS NULL")
-                .setParameter("id", ticketId).setParameter("meanId", meanId).executeUpdate();
-        transaction.commit();
-        System.out.println("Ticket " + ticketId + " has been convalidated!");
+
+        try {
+            transaction.begin();
+
+            em.createQuery("UPDATE Ticket t SET t.convalidationDate = CURRENT_DATE, t.obliterated = TRUE,  t.meanUsed = :meanId WHERE t.id = :id AND convalidationDate IS NULL")
+                    .setParameter("id", ticketId).setParameter("meanId", meanId).executeUpdate();
+
+            transaction.commit();
+            System.out.println("Ticket " + ticketId + " has been convalidated!");
+        } catch (Exception e) {
+            // Se si verifica un'eccezione, gestiscila o registra un messaggio di errore
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            System.err.println("Error during ticket validation: " + e.getMessage());
+        }
     }
 
     public List<Ticket> getTicketsByTime(LocalDate startDate, LocalDate endDate) {
