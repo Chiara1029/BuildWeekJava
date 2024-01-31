@@ -61,7 +61,7 @@ public class TicketOfficeDAO {
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.createQuery("UPDATE Ticket t SET convalidationDate = CURRENT_DATE, t.obliterated = TRUE,  t.meanUsed = :meanId WHERE t.id = :id AND convalidationDate IS NULL")
+        em.createQuery("UPDATE Ticket t SET t.convalidationDate = CURRENT_DATE, t.obliterated = TRUE,  t.meanUsed = :meanId WHERE t.id = :id AND convalidationDate IS NULL")
                 .setParameter("id", ticketId).setParameter("meanId", meanId).executeUpdate();
         transaction.commit();
         System.out.println("Ticket " + ticketId + " has been convalidated!");
@@ -178,18 +178,40 @@ public class TicketOfficeDAO {
         }
     }
 
+
+    public void renewalSubscription(long idSubscription) {
+        LocalDate now = LocalDate.now();
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Subscription subscription = (Subscription) this.findById(idSubscription);
+        LocalDate newAnnualDeadline = now.plusYears(1);
+        LocalDate newPaymentDay;
+        if (subscription.getSubscriptionType() == SubscriptionType.WEEKLY) {
+            newPaymentDay = now.plusDays(7);
+        } else {
+            newPaymentDay = now.plusDays(30);
+        }
+        em.createQuery("UPDATE Subscription s SET s.annualDeadline= :newAnnualDeadline AND s.paymentDay= :newPaymentDay WHERE s.id= :idSubscription ")
+                .setParameter("newAnnualDeadline", newAnnualDeadline)
+                .setParameter("newPaymentDay", newPaymentDay)
+                .setParameter("idSubscription", idSubscription)
+                .executeUpdate();
+        transaction.commit();
+        System.out.println("This subscription has been renewed.");
+    }
+
     public boolean getSubscriptionValidation(long subId) {
         Subscription found = em.find(Subscription.class, subId);
         LocalDate now = LocalDate.now();
-        if(found.getAnnualDeadline().isAfter(now)){
-            if(found.getSubscriptionType() == SubscriptionType.MONTHLY){
-                if (found.getPaymentDay().isAfter(now.minusDays(30))){
+        if (found.getAnnualDeadline().isAfter(now)) {
+            if (found.getSubscriptionType() == SubscriptionType.MONTHLY) {
+                if (found.getPaymentDay().isAfter(now.minusDays(30))) {
                     System.out.println("This subscription is valid.");
                     return true;
                 }
             }
-            if(found.getSubscriptionType() == SubscriptionType.WEEKLY){
-                if (found.getPaymentDay().isAfter(now.minusDays(7))){
+            if (found.getSubscriptionType() == SubscriptionType.WEEKLY) {
+                if (found.getPaymentDay().isAfter(now.minusDays(7))) {
                     System.out.println("This subscription is valid.");
                     return true;
                 }
