@@ -45,6 +45,21 @@ public class RoadsDAO {
             System.out.println("Draft with id: " + id + " not found");
         }
     }
+
+    public void roundTrace(int hourService, int round) {
+        int arrival = 0;
+        int stop = 0;
+        for (int i = 0; i < round; i++) {
+            arrival++;
+            stop += 2;
+        }
+        int effectiveMinutesTime = hourService * 60 / round;
+
+        System.out.println("Effective time is " + effectiveMinutesTime + " minute");
+        System.out.println("The mean travel on stop " + stop + " time and on arrival " + arrival + " time");
+
+    }
+
 }
 
 

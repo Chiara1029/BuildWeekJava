@@ -44,8 +44,12 @@ public class Application {
         ticketOfficeDAO.getSubscriptionByLocation("jellyfish");
         ticketOfficeDAO.getSubscriptionByLocation("The Carpenters");
 
+
         ticketOfficeDAO.getSubscriptionValidation(17);
         ticketOfficeDAO.getSubscriptionValidation(20);
+
+        roadsDAO.roundTrace(8, 8);
+
 
         ticketOfficeDAO.getConvalidationTicketsByMean(meansDAO.findById(9L));
 
