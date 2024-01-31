@@ -20,14 +20,16 @@ public class Draft {
     private String arrival;
     @OneToMany(mappedBy = "draft")
     private Set<Stop> stop;
+    private int timeToTravel;
 
 
     public Draft() {
     }
 
-    public Draft(String departure, String arrival) {
+    public Draft(String departure, String arrival, int timeToTravel) {
         this.departure = departure;
         this.arrival = arrival;
+        this.timeToTravel = timeToTravel;
     }
 
     public Means getMeans_id() {

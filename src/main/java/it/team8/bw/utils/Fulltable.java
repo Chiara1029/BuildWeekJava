@@ -31,7 +31,7 @@ public class Fulltable {
     public static Supplier<Draft> newDraft = () -> {
         Faker faker = new Faker(Locale.ENGLISH);
         Random rnd = new Random();
-        Draft draft = new Draft(faker.address().city(), faker.address().city());
+        Draft draft = new Draft(faker.address().city(), faker.address().city(), rnd.nextInt(30, 50));
         return draft;
     };
     public static Supplier<User> newUser = () -> {
