@@ -43,6 +43,7 @@ public class Application {
         ticketOfficeDAO.getSubscriptionByLocation("jellyfish");
         ticketOfficeDAO.getSubscriptionByLocation("The Carpenters");
 
+        roadsDAO.roundTrace(8, 8);
 
     }
 }
