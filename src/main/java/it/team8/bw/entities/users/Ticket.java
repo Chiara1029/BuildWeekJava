@@ -10,15 +10,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "ticket")
 public class Ticket extends TicketOffice {
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "obliterated=" + obliterated +
-                ", convalidationDate=" + convalidationDate +
-                ", meanUsed=" + meanUsed +
-                ", emissionDate=" + emissionDate +
-                '}';
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -35,6 +26,15 @@ public class Ticket extends TicketOffice {
     public Ticket(LocalDate emissionDate, TicketIssue ticketIssue) {
         super(emissionDate, ticketIssue);
         this.obliterated = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", obliterated=" + obliterated +
+                ", convalidationDate=" + convalidationDate +
+                '}';
     }
 
     public boolean isObliterated() {

@@ -56,7 +56,8 @@ public class TicketOfficeDAO {
         }
     }
 
-    public void setConvalidation(Long ticketId, Means meanId){
+    public void setConvalidation(Long ticketId, Means meanId) {
+
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.createQuery("UPDATE Ticket t SET convalidationDate = CURRENT_DATE, t.obliterated = TRUE,  t.meanUsed = :meanId WHERE t.id = :id AND convalidationDate IS NULL")
@@ -64,76 +65,117 @@ public class TicketOfficeDAO {
         transaction.commit();
         System.out.println("Ticket " + ticketId + " has been convalidated!");
     }
-    public List<Ticket> getTicketsByTime(LocalDate startDate, LocalDate endDate){
-        try{
-            TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t WHERE t.convalidationDate BETWEEN :startDate AND :endDate", Ticket.class);
+
+    public List<Ticket> getTicketsByTime(LocalDate startDate, LocalDate endDate) {
+        try {
+            TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t WHERE t.emissionDate BETWEEN :startDate AND :endDate", Ticket.class);
             query.setParameter("startDate", startDate);
             query.setParameter("endDate", endDate);
             List<Ticket> result = query.getResultList();
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
+                System.out.println("No tickets were emitted during this period.");
+            } else {
+                System.out.println("Tickets emitted from " + startDate + " to " + endDate + ": ");
+                result.forEach(System.out::println);
+            }
+            return result;
+        } catch (NoResultException e) {
+            System.err.println(e.getMessage() + "No tickets were emitted during this period.");
+            return null;
+        }
+    }
+
+    public List<Ticket> getConvalidationTicketsByTime(LocalDate startDate, LocalDate endDate) {
+        try {
+            TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t WHERE t.obliterated = TRUE AND t.convalidationDate BETWEEN :startDate AND :endDate", Ticket.class);
+            query.setParameter("startDate", startDate);
+            query.setParameter("endDate", endDate);
+            List<Ticket> result = query.getResultList();
+            if (result.isEmpty()) {
                 System.out.println("No tickets were obliterated during this period.");
             } else {
                 System.out.println("Tickets obliterated from " + startDate + " to " + endDate + ": ");
                 result.forEach(System.out::println);
             }
             return result;
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             System.err.println(e.getMessage() + "No tickets were obliterated during this period.");
             return null;
         }
     }
-    public List<Ticket> getTicketsByLocation(String sellerName){
-        try{
+
+    public List<Ticket> getTicketsByLocation(String sellerName) {
+        try {
             TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t JOIN t.ticketIssue s WHERE s.sellerName = :sellerName", Ticket.class);
             query.setParameter("sellerName", sellerName);
             List<Ticket> result = query.getResultList();
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
                 System.out.println("No tickets were sold in: " + sellerName);
             } else {
                 System.out.println("Tickets sold in: " + sellerName + result.size());
                 result.forEach(System.out::println);
             }
             return result;
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             System.err.println(e.getMessage() + "No tickets were sold in: " + sellerName);
             return Collections.emptyList();
         }
     }
 
-    public List<Subscription> getSubscriptionByTime(LocalDate paymentDay, LocalDate startDate, LocalDate endDate){
-        try{
-            TypedQuery<Subscription> query = em.createQuery("SELECT s FROM Ticket s WHERE s.paymentDay BETWEEN :startDate AND :endDate", Subscription.class);
-            query.setParameter("paymentDay", paymentDay);
+    public List<Subscription> getSubscriptionByTime(LocalDate startDate, LocalDate endDate) {
+        try {
+            TypedQuery<Subscription> query = em.createQuery("SELECT s FROM Subscription s WHERE s.emissionDate BETWEEN :startDate AND :endDate", Subscription.class);
             query.setParameter("startDate", startDate);
             query.setParameter("endDate", endDate);
             List<Subscription> result = query.getResultList();
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
                 System.out.println("No subscriptions have been activated in this period.");
             } else {
                 System.out.println("Subscriptions activated from " + startDate + " to " + endDate + ": ");
                 result.forEach(System.out::println);
             }
             return result;
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             System.err.println(e.getMessage() + "No subscriptions have been activated in this period.");
             return Collections.emptyList();
         }
     }
-    public List<Subscription> getSubscriptionByLocation(String sellerName){
-        try{
-            TypedQuery<Subscription> query = em.createQuery("SELECT s FROM Ticket s JOIN s.ticketIssue p WHERE p.sellerName = :sellerName", Subscription.class);
+
+    public List<Subscription> getSubscriptionByLocation(String sellerName) {
+        try {
+            TypedQuery<Subscription> query = em.createQuery("SELECT b FROM Subscription b JOIN b.ticketIssue s WHERE s.sellerName = :sellerName", Subscription.class);
             query.setParameter("sellerName", sellerName);
             List<Subscription> result = query.getResultList();
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
                 System.out.println("No subscriptions were sold in: " + sellerName);
             } else {
                 System.out.println("Subscription sold in: " + sellerName + result.size());
                 result.forEach(System.out::println);
             }
             return result;
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             System.err.println(e.getMessage() + "No subscriptions were sold in: " + sellerName);
             return Collections.emptyList();
         }
     }
+
+    public List<Subscription> getSubscriptionValidator(String sellerName) {
+        try {
+            TypedQuery<Subscription> query = em.createQuery("SELECT b FROM Subscription b JOIN b.ticketIssue s WHERE s.sellerName = :sellerName", Subscription.class);
+            query.setParameter("sellerName", sellerName);
+            List<Subscription> result = query.getResultList();
+            if (result.isEmpty()) {
+                System.out.println("No subscriptions were sold in: " + sellerName);
+            } else {
+                System.out.println("Subscription sold in: " + sellerName + result.size());
+                result.forEach(System.out::println);
+            }
+            return result;
+        } catch (NoResultException e) {
+            System.err.println(e.getMessage() + "No subscriptions were sold in: " + sellerName);
+            return Collections.emptyList();
+        }
+    }
+
+
 }
