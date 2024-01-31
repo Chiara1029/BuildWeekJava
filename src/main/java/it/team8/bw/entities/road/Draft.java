@@ -18,8 +18,7 @@ public class Draft {
 
     private String departure;
     private String arrival;
-    @OneToMany
-    @JoinColumn(name = "draft")
+    @OneToMany(mappedBy = "draft")
     private Set<Stop> stop;
 
 
