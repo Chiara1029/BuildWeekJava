@@ -4,6 +4,7 @@ import it.team8.bw.dao.MeansDAO;
 import it.team8.bw.dao.RoadsDAO;
 import it.team8.bw.dao.TicketIssueDAO;
 import it.team8.bw.dao.TicketOfficeDAO;
+import it.team8.bw.exception.TicketOfficeNotFoundException;
 import it.team8.bw.utils.Fulltable;
 
 import javax.persistence.EntityManager;
@@ -22,7 +23,6 @@ public class Application {
         RoadsDAO roadsDAO = new RoadsDAO(em);
         TicketIssueDAO ticketIssueDAO = new TicketIssueDAO(em);
         TicketOfficeDAO ticketOfficeDAO = new TicketOfficeDAO(em);
-
         //Fulltable crea automaticamente la tabella nel database, inserendo valori casuali con Faker per ogni elemento
         Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
 
@@ -59,7 +59,22 @@ public class Application {
 
         meansDAO.getMantenanceById(9L);
 
-        emf.close();
-        em.close();
+        ticketOfficeDAO.renewalSubscription(37);
+
+
+        try {
+
+            ticketOfficeDAO.findById(8432209);
+
+        } catch (TicketOfficeNotFoundException ex) {
+
+            System.err.println("Error type:" + ex.getMessage());
+
+        } finally {
+            emf.close();
+            em.close();
+        }
+
+
     }
 }

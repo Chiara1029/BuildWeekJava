@@ -6,6 +6,7 @@ import it.team8.bw.entities.users.Subscription;
 import it.team8.bw.entities.users.Ticket;
 import it.team8.bw.entities.users.User;
 import it.team8.bw.enums.SubscriptionType;
+import it.team8.bw.exception.TicketOfficeNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -40,8 +41,14 @@ public class TicketOfficeDAO {
     }
 
 
-    public TicketOffice findById(long id) {
-        return em.find(TicketOffice.class, id);
+    public TicketOffice findById(long id) throws TicketOfficeNotFoundException {
+        TicketOffice ticketOffice = em.find(TicketOffice.class, id);
+
+        if (ticketOffice == null) {
+            throw new TicketOfficeNotFoundException();
+        }
+
+        return ticketOffice;
     }
 
     public void findByIdAndDelete(long id) {
@@ -191,7 +198,7 @@ public class TicketOfficeDAO {
         } else {
             newPaymentDay = now.plusDays(30);
         }
-        em.createQuery("UPDATE Subscription s SET s.annualDeadline= :newAnnualDeadline AND s.paymentDay= :newPaymentDay WHERE s.id= :idSubscription ")
+        em.createQuery("UPDATE Subscription s SET s.annualDeadline= :newAnnualDeadline, s.paymentDay= :newPaymentDay WHERE s.id= :idSubscription ")
                 .setParameter("newAnnualDeadline", newAnnualDeadline)
                 .setParameter("newPaymentDay", newPaymentDay)
                 .setParameter("idSubscription", idSubscription)
