@@ -10,25 +10,12 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "subscription")
 public class Subscription extends TicketOffice {
-    @Override
-    public String toString() {
-        return "Subscription{" +
-                "subscriptionType=" + subscriptionType +
-                ", annualDeadline=" + annualDeadline +
-                ", user=" + user +
-                ", paymentDay=" + paymentDay +
-                ", emissionDate=" + emissionDate +
-                '}';
-    }
-
     @Enumerated(EnumType.STRING)
     private SubscriptionType subscriptionType;
     private LocalDate annualDeadline;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     private LocalDate paymentDay;
 
     public Subscription(LocalDate emissionDate, TicketIssue ticketIssue, SubscriptionType subscriptionType, LocalDate paymentDay, User user) {
@@ -73,6 +60,15 @@ public class Subscription extends TicketOffice {
     public void setPaymentDay(LocalDate paymentDay) {
         this.paymentDay = paymentDay;
     }
-
+    @Override
+    public String toString() {
+        return "Subscription{" +
+                "subscriptionType=" + subscriptionType +
+                ", annualDeadline=" + annualDeadline +
+                ", user=" + user +
+                ", paymentDay=" + paymentDay +
+                ", emissionDate=" + emissionDate +
+                '}';
+    }
 
 }

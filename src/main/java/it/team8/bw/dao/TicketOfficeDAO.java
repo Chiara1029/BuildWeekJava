@@ -5,6 +5,7 @@ import it.team8.bw.abstractClass.TicketOffice;
 import it.team8.bw.entities.users.Subscription;
 import it.team8.bw.entities.users.Ticket;
 import it.team8.bw.entities.users.User;
+import it.team8.bw.enums.SubscriptionType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -104,6 +105,24 @@ public class TicketOfficeDAO {
         }
     }
 
+    public List<Ticket> getConvalidationTicketsByMean(Means mean) {
+        try {
+            TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t WHERE t.meanUsed = :mean", Ticket.class);
+            query.setParameter("mean", mean);
+            List<Ticket> result = query.getResultList();
+            if (result.isEmpty()) {
+                System.out.println("No tickets were obliterated on this mean.");
+            } else {
+                System.out.println("Tickets obliterated on mean: " + mean.getId());
+                result.forEach(System.out::println);
+            }
+            return result;
+        } catch (NoResultException e) {
+            System.err.println(e.getMessage() + "No tickets were obliterated on this mean.");
+            return null;
+        }
+    }
+
     public List<Ticket> getTicketsByLocation(String sellerName) {
         try {
             TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t JOIN t.ticketIssue s WHERE s.sellerName = :sellerName", Ticket.class);
@@ -159,22 +178,25 @@ public class TicketOfficeDAO {
         }
     }
 
-    public List<Subscription> getSubscriptionValidator(String sellerName) {
-        try {
-            TypedQuery<Subscription> query = em.createQuery("SELECT b FROM Subscription b JOIN b.ticketIssue s WHERE s.sellerName = :sellerName", Subscription.class);
-            query.setParameter("sellerName", sellerName);
-            List<Subscription> result = query.getResultList();
-            if (result.isEmpty()) {
-                System.out.println("No subscriptions were sold in: " + sellerName);
-            } else {
-                System.out.println("Subscription sold in: " + sellerName + result.size());
-                result.forEach(System.out::println);
+    public boolean getSubscriptionValidation(long subId) {
+        Subscription found = em.find(Subscription.class, subId);
+        LocalDate now = LocalDate.now();
+        if(found.getAnnualDeadline().isAfter(now)){
+            if(found.getSubscriptionType() == SubscriptionType.MONTHLY){
+                if (found.getPaymentDay().isAfter(now.minusDays(30))){
+                    System.out.println("This subscription is valid.");
+                    return true;
+                }
             }
-            return result;
-        } catch (NoResultException e) {
-            System.err.println(e.getMessage() + "No subscriptions were sold in: " + sellerName);
-            return Collections.emptyList();
+            if(found.getSubscriptionType() == SubscriptionType.WEEKLY){
+                if (found.getPaymentDay().isAfter(now.minusDays(7))){
+                    System.out.println("This subscription is valid.");
+                    return true;
+                }
+            }
         }
+        System.out.println("This subscription is invalid");
+        return false;
     }
 
 

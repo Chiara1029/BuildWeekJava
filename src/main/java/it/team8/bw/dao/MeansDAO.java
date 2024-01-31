@@ -5,6 +5,8 @@ import it.team8.bw.entities.means.Maintenance;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class MeansDAO {
     private final EntityManager em;
@@ -38,9 +40,22 @@ public class MeansDAO {
             transaction.begin();
             em.remove(found);
             transaction.commit();
-            System.out.println("Means " + found + " has been deletet with success!");
+            System.out.println("Means " + found + " has been deleted with success!");
         } else {
             System.out.println("Means with id :" + id + " not found");
         }
+    }
+
+    public List<Maintenance> getMantenanceById(long id){
+        TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m JOIN m.means t WHERE t.id = :id", Maintenance.class);
+        query.setParameter("id", id);
+        List<Maintenance> result = query.getResultList();
+        if (result.isEmpty()) {
+            System.out.println("This mean is on service and has never been on maintenance.");
+        } else {
+            System.out.println("Maintenance on this mean: " + result.size());
+            result.forEach(System.out::println);
+        }
+        return result;
     }
 }

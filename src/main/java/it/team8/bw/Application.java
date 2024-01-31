@@ -4,6 +4,7 @@ import it.team8.bw.dao.MeansDAO;
 import it.team8.bw.dao.RoadsDAO;
 import it.team8.bw.dao.TicketIssueDAO;
 import it.team8.bw.dao.TicketOfficeDAO;
+import it.team8.bw.utils.Fulltable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +23,7 @@ public class Application {
         TicketIssueDAO ticketIssueDAO = new TicketIssueDAO(em);
         TicketOfficeDAO ticketOfficeDAO = new TicketOfficeDAO(em);
 
-//        Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
+        Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
 
         LocalDate now = LocalDate.now();
 
@@ -43,6 +44,11 @@ public class Application {
         ticketOfficeDAO.getSubscriptionByLocation("jellyfish");
         ticketOfficeDAO.getSubscriptionByLocation("The Carpenters");
 
+        ticketOfficeDAO.getSubscriptionValidation(17);
+        ticketOfficeDAO.getSubscriptionValidation(20);
 
+        ticketOfficeDAO.getConvalidationTicketsByMean(meansDAO.findById(9L));
+
+        meansDAO.getMantenanceById(9L);
     }
 }
