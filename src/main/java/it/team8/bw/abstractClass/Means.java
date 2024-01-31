@@ -44,7 +44,9 @@ public abstract class Means {
 
     public int getCapacity() {
 
-        if (capacity < 30) throw new RuntimeException("");
+        if (capacity < 30) {
+            throw new RuntimeException("Capacity cannot be less than 30.");
+        }
         return capacity;
     }
 
