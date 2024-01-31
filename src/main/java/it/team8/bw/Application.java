@@ -5,7 +5,7 @@ import it.team8.bw.dao.RoadsDAO;
 import it.team8.bw.dao.TicketIssueDAO;
 import it.team8.bw.dao.TicketOfficeDAO;
 import it.team8.bw.exception.TicketOfficeNotFoundException;
-import it.team8.bw.utils.Fulltable;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,16 +15,19 @@ import java.time.LocalDate;
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestionetrasporti");
 
+
     public static void main(String[] args) {
+
+
         EntityManager em = emf.createEntityManager();
-        System.out.println("Hello World!");
+
 
         MeansDAO meansDAO = new MeansDAO(em);
         RoadsDAO roadsDAO = new RoadsDAO(em);
         TicketIssueDAO ticketIssueDAO = new TicketIssueDAO(em);
         TicketOfficeDAO ticketOfficeDAO = new TicketOfficeDAO(em);
         //Fulltable crea automaticamente la tabella nel database, inserendo valori casuali con Faker per ogni elemento
-        Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
+//        Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
 
         //la data della convalida dei biglietti viene istanziata di default come "null"
         //riceve un valore solo nel momento in cui viene convalidato e viene associato all'ID di un mezzo
@@ -49,8 +52,13 @@ public class Application {
         ticketOfficeDAO.getSubscriptionByLocation("The Carpenters");
 
         //restituisce un valore booleano per indicare se l'abbonamento sia ancora valido oppure no
-        ticketOfficeDAO.getSubscriptionValidation(17);
-        ticketOfficeDAO.getSubscriptionValidation(20);
+        try {
+            ticketOfficeDAO.getSubscriptionValidation(17);
+            ticketOfficeDAO.getSubscriptionValidation(20);
+        } catch (NullPointerException ex) {
+            System.out.println("Error:" + ex);
+        }
+
 
         roadsDAO.roundTrace(8, 8);
 
@@ -59,7 +67,7 @@ public class Application {
 
         meansDAO.getMantenanceById(9L);
 
-        ticketOfficeDAO.renewalSubscription(37);
+        ticketOfficeDAO.renewalSubscription(16);
 
 
         try {
@@ -68,7 +76,7 @@ public class Application {
 
         } catch (TicketOfficeNotFoundException ex) {
 
-            System.err.println("Error type:" + ex.getMessage());
+            System.out.println("Error type:" + ex.getMessage());
 
         } finally {
             emf.close();

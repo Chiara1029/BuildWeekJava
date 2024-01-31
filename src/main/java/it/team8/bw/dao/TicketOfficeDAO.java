@@ -219,22 +219,31 @@ public class TicketOfficeDAO {
 
     public boolean getSubscriptionValidation(long subId) {
         Subscription found = em.find(Subscription.class, subId);
+
+        if (found == null) {
+            throw new NullPointerException("Subscription not found");
+        }
+
         LocalDate now = LocalDate.now();
+
         if (found.getAnnualDeadline().isAfter(now)) {
+            LocalDate validPaymentDate;
+
             if (found.getSubscriptionType() == SubscriptionType.MONTHLY) {
-                if (found.getPaymentDay().isAfter(now.minusDays(30))) {
-                    System.out.println("This subscription is valid.");
-                    return true;
-                }
+                validPaymentDate = now.minusDays(30);
+            } else if (found.getSubscriptionType() == SubscriptionType.WEEKLY) {
+                validPaymentDate = now.minusDays(7);
+            } else {
+                throw new IllegalArgumentException("Unsupported subscription type");
             }
-            if (found.getSubscriptionType() == SubscriptionType.WEEKLY) {
-                if (found.getPaymentDay().isAfter(now.minusDays(7))) {
-                    System.out.println("This subscription is valid.");
-                    return true;
-                }
+
+            if (found.getPaymentDay().isAfter(validPaymentDate)) {
+                System.out.println("This subscription is valid.");
+                return true;
             }
         }
-        System.out.println("This subscription is invalid");
+
+        System.out.println("This subscription is invalid.");
         return false;
     }
 
