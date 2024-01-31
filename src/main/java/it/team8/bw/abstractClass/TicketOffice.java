@@ -25,8 +25,6 @@ public abstract class TicketOffice {
         this.ticketIssue = ticketIssue;
 
     }
-
-
     public LocalDate getEmissionDate() {
         return emissionDate;
     }

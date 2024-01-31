@@ -47,6 +47,8 @@ public class RoadsDAO {
     }
 
     public void roundTrace(int hourService, int round) {
+        try{
+
         int arrival = 0;
         int stop = 0;
         for (int i = 0; i < round; i++) {
@@ -57,6 +59,9 @@ public class RoadsDAO {
 
         System.out.println("Effective time is " + effectiveMinutesTime + " minute");
         System.out.println("The mean travel on stop " + stop + " time and on arrival " + arrival + " time");
+        }catch (Exception e){
+            System.out.println("Error in RoundTrace: "+e.getMessage());
+        }
 
     }
 

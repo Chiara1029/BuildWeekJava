@@ -13,11 +13,16 @@ public class TicketIssueDAO {
     }
 
     public void save(TicketIssue ticketIssue){
+        try {
+
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(ticketIssue);
         transaction.commit();
         System.out.println("Ticket " + ticketIssue + " has been saved with success!");
+        }catch (Exception e){
+            System.out.println("Error while saving TicketIssue: "+e.getMessage());
+        }
     }
 
     public TicketIssue findById (long id){
@@ -25,6 +30,8 @@ public class TicketIssueDAO {
     }
 
     public void findByIdAndDelete(long id){
+        try{
+
         TicketIssue found = this.findById(id);
         if(found != null){
             EntityTransaction transaction = em.getTransaction();
@@ -34,6 +41,9 @@ public class TicketIssueDAO {
             System.out.println("Ticket " + found + " has been deleted with success!");
         } else {
             System.out.println("Ticket Issue with id: " + id + " not found.");
+        }
+        }catch (Exception e){
+            System.out.println("Error while deliting TicketIssue by ID: "+ e.getMessage());
         }
     }
 }
