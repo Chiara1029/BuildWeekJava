@@ -21,7 +21,7 @@ public abstract class Means {
     @JoinColumn(name = "draft_id")
     protected Draft draft;
 
-    @OneToMany(mappedBy = "means")
+    @OneToMany(mappedBy = "mean")
     protected Set<Maintenance> maintenance;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

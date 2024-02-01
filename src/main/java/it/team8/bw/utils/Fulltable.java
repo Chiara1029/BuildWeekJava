@@ -98,7 +98,7 @@ public class Fulltable {
     }
 
     public static void creation(MeansDAO meansDAO, RoadsDAO roadsDAO, TicketIssueDAO ticketIssueDAO, TicketOfficeDAO ticketOfficeDAO) {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 30; i++) {
             Draft draft = newDraft.get();
             roadsDAO.saveDraft(draft);
 

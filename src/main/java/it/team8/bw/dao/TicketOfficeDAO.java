@@ -200,21 +200,27 @@ public class TicketOfficeDAO {
         LocalDate now = LocalDate.now();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        Subscription subscription = (Subscription) this.findById(idSubscription);
+        TicketOffice subscription = this.findById(idSubscription);
         LocalDate newAnnualDeadline = now.plusYears(1);
         LocalDate newPaymentDay;
-        if (subscription.getSubscriptionType() == SubscriptionType.WEEKLY) {
-            newPaymentDay = now.plusDays(7);
+        if (subscription instanceof Subscription) {
+            Subscription subscription1 = (Subscription) subscription;
+            if (subscription1.getSubscriptionType() == SubscriptionType.WEEKLY) {
+                newPaymentDay = now.plusDays(7);
+            } else {
+                newPaymentDay = now.plusDays(30);
+            }
+            em.createQuery("UPDATE Subscription s SET s.annualDeadline= :newAnnualDeadline, s.paymentDay= :newPaymentDay WHERE s.id= :idSubscription ")
+                    .setParameter("newAnnualDeadline", newAnnualDeadline)
+                    .setParameter("newPaymentDay", newPaymentDay)
+                    .setParameter("idSubscription", idSubscription)
+                    .executeUpdate();
+            transaction.commit();
+            System.out.println("This subscription has been renewed.");
         } else {
-            newPaymentDay = now.plusDays(30);
+
         }
-        em.createQuery("UPDATE Subscription s SET s.annualDeadline= :newAnnualDeadline, s.paymentDay= :newPaymentDay WHERE s.id= :idSubscription ")
-                .setParameter("newAnnualDeadline", newAnnualDeadline)
-                .setParameter("newPaymentDay", newPaymentDay)
-                .setParameter("idSubscription", idSubscription)
-                .executeUpdate();
-        transaction.commit();
-        System.out.println("This subscription has been renewed.");
+
     }
 
     public boolean getSubscriptionValidation(long subId) {
