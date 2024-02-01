@@ -5,6 +5,7 @@ import it.team8.bw.dao.RoadsDAO;
 import it.team8.bw.dao.TicketIssueDAO;
 import it.team8.bw.dao.TicketOfficeDAO;
 import it.team8.bw.exception.TicketOfficeNotFoundException;
+import it.team8.bw.utils.Fulltable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,7 +27,7 @@ public class Application {
         TicketIssueDAO ticketIssueDAO = new TicketIssueDAO(em);
         TicketOfficeDAO ticketOfficeDAO = new TicketOfficeDAO(em);
         //Fulltable crea automaticamente la tabella nel database, inserendo valori casuali con Faker per ogni elemento
-//        Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
+        Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
 
         //la data della convalida dei biglietti viene istanziata di default come "null"
         //riceve un valore solo nel momento in cui viene convalidato e viene associato all'ID di un mezzo
@@ -59,7 +60,7 @@ public class Application {
         }
 
 
-        roadsDAO.roundTrace(8, 8);
+        roadsDAO.roundTrace(8, 8, 1);
 
 
         ticketOfficeDAO.getConvalidationTicketsByMean(meansDAO.findById(9L));
