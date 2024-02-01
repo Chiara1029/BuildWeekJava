@@ -6,7 +6,6 @@ import it.team8.bw.dao.TicketIssueDAO;
 import it.team8.bw.dao.TicketOfficeDAO;
 import it.team8.bw.exception.TicketOfficeNotFoundException;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

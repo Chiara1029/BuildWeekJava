@@ -10,9 +10,11 @@ import java.util.List;
 
 public class MeansDAO {
     private final EntityManager em;
+
     public MeansDAO(EntityManager em) {
         this.em = em;
     }
+
     public void saveMeans(Means mean) {
         try{
 
@@ -61,8 +63,8 @@ public class MeansDAO {
         }
     }
 
-    public List<Maintenance> getMantenanceById(long id){
-        TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m JOIN m.means t WHERE t.id = :id", Maintenance.class);
+    public List<Maintenance> getMantenanceById(long id) {
+        TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m JOIN m.mean t WHERE t.id = :id", Maintenance.class);
         query.setParameter("id", id);
         List<Maintenance> result = query.getResultList();
         if (result.isEmpty()) {
