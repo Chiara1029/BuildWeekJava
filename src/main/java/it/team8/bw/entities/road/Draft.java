@@ -69,6 +69,14 @@ public class Draft {
         return id;
     }
 
+    public int getTimeToTravel() {
+        return timeToTravel;
+    }
+
+    public void setTimeToTravel(int timeToTravel) {
+        this.timeToTravel = timeToTravel;
+    }
+
     @Override
     public String toString() {
         return "Draft{" +

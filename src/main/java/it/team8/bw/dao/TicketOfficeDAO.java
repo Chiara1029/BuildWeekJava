@@ -41,14 +41,10 @@ public class TicketOfficeDAO {
     }
 
 
-    public TicketOffice findById(long id) throws TicketOfficeNotFoundException {
-        TicketOffice ticketOffice = em.find(TicketOffice.class, id);
+    public TicketOffice findById(long id) {
 
-        if (ticketOffice == null) {
-            throw new TicketOfficeNotFoundException();
-        }
+        return em.find(TicketOffice.class, id);
 
-        return ticketOffice;
     }
 
     public void findByIdAndDelete(long id) {
@@ -60,7 +56,7 @@ public class TicketOfficeDAO {
             transaction.commit();
             System.out.println("TicketOffice " + found + " has been deleted with success !");
         } else {
-            System.out.println("TicketOffice with id: " + id + " not found");
+            throw new TicketOfficeNotFoundException();
         }
     }
 
