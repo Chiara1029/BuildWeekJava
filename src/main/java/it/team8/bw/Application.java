@@ -1,16 +1,15 @@
 package it.team8.bw;
 
-import it.team8.bw.dao.MeansDAO;
-import it.team8.bw.dao.RoadsDAO;
-import it.team8.bw.dao.TicketIssueDAO;
-import it.team8.bw.dao.TicketOfficeDAO;
-import it.team8.bw.exception.TicketOfficeNotFoundException;
+import it.team8.bw.dao.*;
+import it.team8.bw.exception.LogError;
 import it.team8.bw.utils.Fulltable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.Scanner;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestionetrasporti");
@@ -26,6 +25,8 @@ public class Application {
         RoadsDAO roadsDAO = new RoadsDAO(em);
         TicketIssueDAO ticketIssueDAO = new TicketIssueDAO(em);
         TicketOfficeDAO ticketOfficeDAO = new TicketOfficeDAO(em);
+        LogErrorDao logErrorDao = new LogErrorDao();
+
         //Fulltable crea automaticamente la tabella nel database, inserendo valori casuali con Faker per ogni elemento
         Fulltable.creation(meansDAO, roadsDAO, ticketIssueDAO, ticketOfficeDAO);
 
@@ -69,19 +70,28 @@ public class Application {
 
         ticketOfficeDAO.renewalSubscription(16);
 
+        Scanner scanner = new Scanner(System.in);
 
         try {
 
-            ticketOfficeDAO.findById(8432209);
+            System.out.println("Insert Potato");
+            long input = Long.parseLong(scanner.nextLine());
+            ticketOfficeDAO.findById(input);
 
-        } catch (TicketOfficeNotFoundException ex) {
+        } catch (Exception ex) {
+            LogError log = new LogError();
+            log.setMessage(ex.getMessage());
+            log.setTimestamp(new Date());
+            logErrorDao.saveError(log);
+            System.out.println(log);
 
-            System.out.println("Error type:" + ex.getMessage());
 
         } finally {
             emf.close();
             em.close();
         }
+        emf.close();
+        em.close();
 
 
     }
