@@ -46,7 +46,7 @@ public class RoadsDAO {
         }
     }
 
-    public void roundTrace(int hourService, int round) {
+    public void roundTrace(int hourService, int round, long idRelativeDraft) {
         int arrival = 0;
         int stop = 0;
         for (int i = 0; i < round; i++) {
@@ -55,6 +55,7 @@ public class RoadsDAO {
         }
         int effectiveMinutesTime = hourService * 60 / round;
 
+        
         System.out.println("Effective time is " + effectiveMinutesTime + " minute");
         System.out.println("The mean travel on stop " + stop + " time and on arrival " + arrival + " time");
 
