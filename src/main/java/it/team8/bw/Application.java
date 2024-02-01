@@ -59,7 +59,7 @@ public class Application {
         }
 
 
-        roadsDAO.roundTrace(8, 8);
+        roadsDAO.roundTrace(8, 8, 1);
 
 
         ticketOfficeDAO.getConvalidationTicketsByMean(meansDAO.findById(9L));
@@ -78,10 +78,10 @@ public class Application {
             System.out.println("Error type:" + ex.getMessage());
 
         } finally {
-            emf.close();
-            em.close();
-        }
 
+        }
+        emf.close();
+        em.close();
 
     }
 }

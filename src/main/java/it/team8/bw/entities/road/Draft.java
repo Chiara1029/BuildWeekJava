@@ -32,12 +32,16 @@ public class Draft {
         this.timeToTravel = timeToTravel;
     }
 
-    public Means getMeans_id() {
-        return mean;
+    public int getTimeToTravel() {
+        return timeToTravel;
     }
 
-    public void setMeans_id(Means means_id) {
-        this.mean = means_id;
+    public void setTimeToTravel(int timeToTravel) {
+        this.timeToTravel = timeToTravel;
+    }
+
+    public Means getMeans_id() {
+        return mean;
     }
 
     public String getDepartur() {
