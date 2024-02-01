@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestionetrasporti");
 
+    private static LogError log = new LogError();
 
     public static void main(String[] args) {
 
@@ -79,7 +80,7 @@ public class Application {
             ticketOfficeDAO.findById(input);
 
         } catch (Exception ex) {
-            LogError log = new LogError();
+
             log.setMessage(ex.getMessage());
             log.setTimestamp(new Date());
             logErrorDao.saveError(log);
