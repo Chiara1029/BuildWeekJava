@@ -16,28 +16,29 @@ public class MeansDAO {
     }
 
     public void saveMeans(Means mean) {
-        try{
+        try {
 
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(mean);
-        transaction.commit();
-        System.out.println("Mean " + mean + " has been saved with success!");
-        }catch (Exception e){
-            System.out.println("Error while saving Means:"+ e.getMessage());
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            em.persist(mean);
+            transaction.commit();
+            System.out.println("Mean " + mean + " has been saved with success!");
+        } catch (Exception e) {
+            System.out.println("Error while saving Means:" + e.getMessage());
         }
     }
 
     public void saveMaintenance(Maintenance maintenance) {
-        try{
+        try {
 
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(maintenance);
-        transaction.commit();
-        System.out.println("Maintenance " + maintenance + " has been saved with success!");
-        }catch (Exception e){
-            System.out.println("Error while saving Maintenance: "+ e.getMessage());
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            em.persist(maintenance);
+            transaction.commit();
+            System.out.println("Maintenance " + maintenance + " has been saved with success!");
+        } catch (Exception e) {
+            System.out.println("Error while saving Maintenance: " + e.getMessage());
+
         }
     }
 
@@ -46,20 +47,20 @@ public class MeansDAO {
     }
 
     public void findByIdAndDelete(long id) {
-        try{
+        try {
 
-        Means found = this.findById(id);
-        if (found != null) {
-            EntityTransaction transaction = em.getTransaction();
-            transaction.begin();
-            em.remove(found);
-            transaction.commit();
-            System.out.println("Means " + found + " has been deleted with success!");
-        } else {
-            System.out.println("Means with id :" + id + " not found");
-        }
-        }catch (Exception e){
-            System.out.println("Error while fetching Maintenance data: "+ e.getMessage());
+            Means found = this.findById(id);
+            if (found != null) {
+                EntityTransaction transaction = em.getTransaction();
+                transaction.begin();
+                em.remove(found);
+                transaction.commit();
+                System.out.println("Means " + found + " has been deleted with success!");
+            } else {
+                System.out.println("Means with id :" + id + " not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Error while fetching Maintenance data: " + e.getMessage());
         }
     }
 
