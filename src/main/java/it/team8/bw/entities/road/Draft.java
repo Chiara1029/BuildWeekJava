@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Draft {
     @OneToOne(mappedBy = "draft")
-    private Means means_id;
+    private Means mean;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -19,7 +19,7 @@ public class Draft {
     private String departure;
     private String arrival;
     @OneToMany(mappedBy = "draft")
-    private Set<Stop> stop;
+    private Set<Stop> stops;
     private int timeToTravel;
 
 
@@ -33,11 +33,11 @@ public class Draft {
     }
 
     public Means getMeans_id() {
-        return means_id;
+        return mean;
     }
 
     public void setMeans_id(Means means_id) {
-        this.means_id = means_id;
+        this.mean = means_id;
     }
 
     public String getDepartur() {
@@ -57,11 +57,11 @@ public class Draft {
     }
 
     public Set<Stop> getStop() {
-        return stop;
+        return stops;
     }
 
     public void setStop(Set<Stop> stop) {
-        this.stop = stop;
+        this.stops = stop;
     }
 
 
@@ -74,7 +74,7 @@ public class Draft {
         return "Draft{" +
                 "departure='" + departure + '\'' +
                 ", arrival='" + arrival + '\'' +
-                ", stop=" + stop +
+                ", stops=" + stops +
                 '}';
     }
 

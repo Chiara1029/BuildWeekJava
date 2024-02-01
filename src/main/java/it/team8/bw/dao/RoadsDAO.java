@@ -45,10 +45,8 @@ public class RoadsDAO {
             System.out.println("Draft with id: " + id + " not found");
         }
     }
-
-    public void roundTrace(int hourService, int round) {
+    public void roundTrace(int hourService, int round, long idRelativeDraft) {
         try{
-
         int arrival = 0;
         int stop = 0;
         for (int i = 0; i < round; i++) {
@@ -56,7 +54,11 @@ public class RoadsDAO {
             stop += 2;
         }
         int effectiveMinutesTime = hourService * 60 / round;
+        Draft draft = findById(idRelativeDraft);
 
+        System.out.println("This Draft with this id: " + draft.getId() + " departur at: " + draft.getDepartur() + " arrived at: " + draft.getArrival() + " time to travel: " + draft.getTimeToTravel());
+        draft.getStop().forEach(System.out::println);
+        
         System.out.println("Effective time is " + effectiveMinutesTime + " minute");
         System.out.println("The mean travel on stop " + stop + " time and on arrival " + arrival + " time");
         }catch (Exception e){
