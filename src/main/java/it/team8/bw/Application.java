@@ -80,8 +80,14 @@ public class Application {
             ticketOfficeDAO.findById(input);
 
         } catch (Exception ex) {
+            StackTraceElement[] error = ex.getStackTrace();
+            String temp = "";
+            for (StackTraceElement element : error) {
+                temp += element.toString() + "____";
+            }
 
-            log.setMessage(ex.getMessage());
+            log.setMessage(temp.substring(0, 200));
+
             log.setTimestamp(new Date());
             logErrorDao.saveError(log);
             System.out.println(log);
