@@ -42,9 +42,7 @@ public class TicketOfficeDAO {
 
 
     public TicketOffice findById(long id) {
-
         return em.find(TicketOffice.class, id);
-
     }
 
     public void findByIdAndDelete(long id) {
@@ -62,17 +60,13 @@ public class TicketOfficeDAO {
 
     public void setConvalidation(Long ticketId, Means meanId) {
         EntityTransaction transaction = em.getTransaction();
-
         try {
             transaction.begin();
-
             em.createQuery("UPDATE Ticket t SET t.convalidationDate = CURRENT_DATE, t.obliterated = TRUE,  t.meanUsed = :meanId WHERE t.id = :id AND convalidationDate IS NULL")
                     .setParameter("id", ticketId).setParameter("meanId", meanId).executeUpdate();
-
             transaction.commit();
             System.out.println("Ticket " + ticketId + " has been convalidated!");
         } catch (Exception e) {
-            // Se si verifica un'eccezione, gestiscila o registra un messaggio di errore
             if (transaction.isActive()) {
                 transaction.rollback();
             }
@@ -220,34 +214,31 @@ public class TicketOfficeDAO {
     }
 
     public boolean getSubscriptionValidation(long subId) {
-        Subscription found = em.find(Subscription.class, subId);
-
-        if (found == null) {
-            throw new NullPointerException("Subscription not found");
-        }
-
-        LocalDate now = LocalDate.now();
-
-        if (found.getAnnualDeadline().isAfter(now)) {
-            LocalDate validPaymentDate;
-
-            if (found.getSubscriptionType() == SubscriptionType.MONTHLY) {
-                validPaymentDate = now.minusDays(30);
-            } else if (found.getSubscriptionType() == SubscriptionType.WEEKLY) {
-                validPaymentDate = now.minusDays(7);
-            } else {
-                throw new IllegalArgumentException("Unsupported subscription type");
+        try {
+            Subscription found = em.find(Subscription.class, subId);
+            if (found == null) {
+                throw new NullPointerException("Subscription not found");
             }
-
-            if (found.getPaymentDay().isAfter(validPaymentDate)) {
-                System.out.println("This subscription is valid.");
-                return true;
+            LocalDate now = LocalDate.now();
+            if (found.getAnnualDeadline().isAfter(now)) {
+                LocalDate validPaymentDate;
+                if (found.getSubscriptionType() == SubscriptionType.MONTHLY) {
+                    validPaymentDate = now.minusDays(30);
+                } else if (found.getSubscriptionType() == SubscriptionType.WEEKLY) {
+                    validPaymentDate = now.minusDays(7);
+                } else {
+                    throw new IllegalArgumentException("Unsupported subscription type");
+                }
+                if (found.getPaymentDay().isAfter(validPaymentDate)) {
+                    System.out.println("This subscription is valid.");
+                    return true;
+                }
             }
+            System.out.println("This subscription is invalid.");
+            return false;
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
+            return false;
         }
-
-        System.out.println("This subscription is invalid.");
-        return false;
     }
-
-
 }
