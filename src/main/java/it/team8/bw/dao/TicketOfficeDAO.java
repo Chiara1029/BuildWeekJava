@@ -76,10 +76,17 @@ public class TicketOfficeDAO {
 
     public List<Ticket> getTicketsByTime(LocalDate startDate, LocalDate endDate) {
         try {
+
+
             TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t WHERE t.emissionDate BETWEEN :startDate AND :endDate", Ticket.class);
+
             query.setParameter("startDate", startDate);
+
             query.setParameter("endDate", endDate);
+
             List<Ticket> result = query.getResultList();
+
+
             if (result.isEmpty()) {
                 System.out.println("No tickets were emitted during this period.");
             } else {

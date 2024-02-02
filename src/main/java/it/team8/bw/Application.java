@@ -96,5 +96,6 @@ public class Application {
         }
         emf.close();
         em.close();
+        scanner.close();
     }
 }

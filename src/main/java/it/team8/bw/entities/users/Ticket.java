@@ -11,9 +11,7 @@ import java.time.LocalDate;
 @Table(name = "ticket")
 public class Ticket extends TicketOffice {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+
     private boolean obliterated;
     private LocalDate convalidationDate;
     @ManyToOne
@@ -31,7 +29,6 @@ public class Ticket extends TicketOffice {
     @Override
     public String toString() {
         return "Ticket{" +
-                "id=" + id +
                 ", obliterated=" + obliterated +
                 ", convalidationDate=" + convalidationDate +
                 '}';
