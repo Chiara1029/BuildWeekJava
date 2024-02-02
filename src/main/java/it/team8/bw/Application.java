@@ -18,9 +18,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-
         EntityManager em = emf.createEntityManager();
-
 
         MeansDAO meansDAO = new MeansDAO(em);
         RoadsDAO roadsDAO = new RoadsDAO(em);
@@ -61,45 +59,42 @@ public class Application {
             System.out.println("Error:" + ex);
         }
 
-
+        //dato l'ID di una tratta, un orario di servizio e il numero dei giri, restituisce il tempo effettivo di percorrenza
+        //e il numero di tappe percorse
         roadsDAO.roundTrace(8, 8, 1);
 
-
+        //dato l'ID di un mezzo specifico, restituisce la lista dei biglietti convalidati su quel mezzo
         ticketOfficeDAO.getConvalidationTicketsByMean(meansDAO.findById(9L));
 
+        //dato l'ID di un mezzo specifico, restituisce la lista di tutte le manutenzioni di quel mezzo
         meansDAO.getMantenanceById(9L);
 
+        //se l'abbonamento dell'utente è scaduto, questo metodo permette di rinnovarlo andando ad aggiornare la data di scadenza
         ticketOfficeDAO.renewalSubscription(16);
 
+
+        //per testare e scatenare un errore, inseriamo un dato errato tramite scanner, salvando l'errore nel db
         Scanner scanner = new Scanner(System.in);
 
         try {
-
-            System.out.println("Insert Potato");
+            System.out.println("Insert Long to find a TicketOffice by ID or a different type to generate an error: ");
             long input = Long.parseLong(scanner.nextLine());
             ticketOfficeDAO.findById(input);
-
         } catch (Exception ex) {
             StackTraceElement[] error = ex.getStackTrace();
             String temp = "";
             for (StackTraceElement element : error) {
                 temp += element.toString() + "____";
             }
-
             log.setMessage(temp.substring(0, 200));
-
             log.setTimestamp(new Date());
             logErrorDao.saveError(log);
             System.out.println(log);
-
-
         } finally {
             emf.close();
             em.close();
         }
         emf.close();
         em.close();
-
-
     }
 }
